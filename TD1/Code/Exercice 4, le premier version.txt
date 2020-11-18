@@ -1,0 +1,5 @@
+Le premiere version
+nbSamples = 100000, nbp = 5
+The mean pi = 3.14616
+Le temps de l'execution de premiere version = 6.486ms
+
