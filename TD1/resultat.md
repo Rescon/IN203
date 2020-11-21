@@ -121,21 +121,21 @@ make Diffusion_hypercube
 ```  
 **Je constate que:**  
 mpiexec -oversubscribe -np 16 ./Diffusion_hypercube.exe  
-La processus n°0 est source et jeton = 43  
-La processus n°4 est source et jeton = 43  
-La processus n°8 et jeton = 44  
-La processus n°1 est source et jeton = 43  
-La processus n°3 est source et jeton = 43  
-La processus n°12 et jeton = 44  
-La processus n°9 et jeton = 44  
-La processus n°11 et jeton = 44  
-La processus n°2 est source et jeton = 43  
-La processus n°7 est source et jeton = 43  
-La processus n°10 et jeton = 44  
-La processus n°6 est source et jeton = 43  
-La processus n°14 et jeton = 44  
-La processus n°15 et jeton = 44  
-La processus n°5 est source et jeton = 43  
-La processus n°13 et jeton = 44  
+Processeur n°1 recieves 29 for jeton from processeur n°0 dans la étape 1.  
+Processeur n°9 recieves 29 for jeton from processeur n°1 dans la étape 4.  
+Processeur n°5 recieves 29 for jeton from processeur n°1 dans la étape 3.  
+Processeur n°2 recieves 29 for jeton from processeur n°0 dans la étape 2.  
+Processeur n°3 recieves 29 for jeton from processeur n°1 dans la étape 2.  
+Processeur n°8 recieves 29 for jeton from processeur n°0 dans la étape 4.  
+Processeur n°11 recieves 29 for jeton from processeur n°3 dans la étape 4.  
+Processeur n°10 recieves 29 for jeton from processeur n°2 dans la étape 4.  
+Processeur n°4 recieves 29 for jeton from processeur n°0 dans la étape 3.  
+Processeur n°6 recieves 29 for jeton from processeur n°2 dans la étape 3.  
+Processeur n°12 recieves 29 for jeton from processeur n°4 dans la étape 4.  
+Processeur n°13 recieves 29 for jeton from processeur n°5 dans la étape 4.  
+Processeur n°14 recieves 29 for jeton from processeur n°6 dans la étape 4.  
+Processeur n°7 recieves 29 for jeton from processeur n°3 dans la étape 3.  
+Processeur n°15 recieves 29 for jeton from processeur n°7 dans la étape 4.  
+
 **Et dans "Exercice 5.txt", on a:**    
-Le temps d'execution 0.064663ms
+Le temps d'execution est 20.9792ms.

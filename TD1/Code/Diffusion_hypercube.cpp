@@ -7,7 +7,6 @@
 # include <mpi.h>
 # include <time.h>
 # include <math.h>
-# include <bitset>
 
 int main( int nargs, char* argv[] )
 {
@@ -41,29 +40,31 @@ int main( int nargs, char* argv[] )
 
 	// Rajout du programme ici...
 	double start = MPI_Wtime();
-	int jeton;
+	int jeton = 0;
+	if(rank == 0){
+		jeton = rand()%100;
+	}
 	int dimension = log2(nbp);
 
-	std::bitset<6> transformRank(rank);
-	if(transformRank>>(dimension-1)==0){
-		jeton = rand()%100;
-		std::cout << "La processus n°" << rank << " est source" << " et jeton = " << jeton << std::endl;
-		int neighbor = static_cast<int>(transformRank.set(dimension-1).to_ullong());
-		MPI_Send(&jeton,1,MPI_INT,neighbor,tag,globComm);
-	}
-	else{
-		MPI_Recv(&jeton,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG,globComm,&status);
-		jeton += 1;
-		std::cout << "La processus n°" << rank << " et jeton = " << jeton << std::endl;
+	std::stringstream fileName;
+	fileName << "Exercice 5.txt";
+	std::ofstream output( fileName.str().c_str() );
+
+
+	for(int i = 0;i < dimension;i++){
+		for(int j = 0;j < pow(2,i);j++){
+			if(rank == j){
+				MPI_Send(&jeton,1,MPI_INT,pow(2,i)+j,tag,globComm);
+			}
+			if(rank == pow(2,i)+j){
+				MPI_Recv(&jeton,1,MPI_INT,j,tag,globComm,&status);
+				std::cout << "Processeur n°" << pow(2,i)+j << " recieves " << jeton << " for jeton from processeur n°" << j << " dans la étape " << i+1 << "." << std::endl;
+			}
+		}
 	}
 	double end = MPI_Wtime();
-	if(rank == 0){
-		std::stringstream fileName;
-		fileName << "Exercice 5.txt";
-		std::ofstream output( fileName.str().c_str() );
-		output << "Le temps d'execution " << (end-start)*1000 << "ms" << std::endl;
-		output.close();
-	}
+	output << "Le temps d'execution est " << (end-start)*1000 << "ms." << std::endl;
+	output.close();
 	// A la fin du programme, on doit synchroniser une dernière fois tous les processus
 	// afin qu'aucun processus ne se termine pendant que d'autres processus continue à
 	// tourner. Si on oublie cet instruction, on aura une plantage assuré des processus
