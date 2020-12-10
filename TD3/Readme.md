@@ -1,6 +1,4 @@
-
-
-# TP2 de WANG Yu
+# TP3 de WANG Yu
 
 `pandoc -s --toc tp2.md --css=./github-pandoc.css -o tp2.html`
 
@@ -58,7 +56,9 @@ séquentiel | 0.868233
 8          |   0.153738
 
 
-*Discuter sur ce qu'on observe, la logique qui s'y cache.*
+*Discuter sur ce qu'on observe, la logique qui s'y cache.*  
+À mesure que le nombre de threads augmente, le temps de calcul diminue d'abord, puis reste fondamentalement inchangé. En fait, lorsque le nombre de threads augmente, des commutations fréquentes entre les threads ralentissent le temps de calcul.  
+Le nombre de cœurs dans le système est fixe. L'activation d'un trop grand nombre de threads entraînera de fréquents changements de thread. L'ouverture et la fermeture des filetages sont la principale cause du mouvement de performance.
 
 
 ## Produit matrice-matrice
@@ -82,7 +82,8 @@ j,k,i             | 0.917265 | 2341.18 | 2452.97
 k,j,i             | 1.15568 | 1858.2 | 1739.47 
 
 
-*Discussion des résultats*
+*Discussion des résultats  
+Lorsque les boucles sont réorganisées, les données requises par la boucle la plus interne seront placées dans la zone de cache, de sorte que le temps d'accès total est le plus court et l'efficacité est la plus élevée. Dans la version inefficace, l'ensemble de données doit être accédé à partir de la mémoire.
 
 
 
@@ -101,7 +102,7 @@ k,j,i             | 1.15568 | 1858.2 | 1739.47
 7                 | 3724.77 | 3841.95 | 3108.07 | 3742.91
 8                 | 3704.09 | 3743.39 | 3065.91 | 3734.1
 
-
+Analyse: l'augmentation du nombre de threads accélérera le calcul, mais augmentera en même temps la surcharge de calcul
 
 
 ### Produit par blocs
@@ -118,7 +119,7 @@ origine (=max)    |  |  |  |
 512               | 2316.39 | 2320.05 | 2349.03 | 2328.87
 1024              | 2238.74 | 2107.46 | 2428.85 | 1987.84
 
-
+Conclusion: le calcul de bloc n'augmentera pas la charge de calcul globale, en fait, une taille de bloc spécifique peut réduire le temps de calcul.
 
 
 ### Bloc + OMP
@@ -136,8 +137,7 @@ OMP_NUM         | MFlops  | MFlops(n=2048) | MFlops(n=512)  | MFlops(n=4096)
 7                 | 3577.73 | 3741.67 | 2617.42 | 3805.54
 8                 | 3466.07 | 3480.43 | 2560.29 | 3823.03
 
-
-
+En général, nous pouvons utiliser plus de threads et optimiser la séquence de boucle pour accélérer l'opération de multiplication de la matrice. Dans le même temps, un partitionnement raisonnable peut encore optimiser le calcul.
 
 
 
